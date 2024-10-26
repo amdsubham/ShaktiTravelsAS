@@ -1,13 +1,24 @@
+import React, { useEffect } from "react";
 import Login from "./components/auth/login";
 import Register from "./components/auth/register";
-
+import BookedUser from "./components/bookedUser";
 import Header from "./components/header";
-import Home from "./components/home";
+import Home from "./components/home"; // Sidebar component
+import { AuthProvider, useAuth } from "./contexts/authContext";
+import { useRoutes, useNavigate } from "react-router-dom";
+import SubscribedUser from "./components/subscribedUser";
+import TestimonialSetup from "./components/testimonialSetup";
+import ServicesSetup from "./components/servicesSetup";
+import PackagesSetup from "./components/popularPackages";
+import ContactFormSetup from "./components/ContactFormSetup";
+import ContactInfoSetup from "./components/ContactInfoSetup";
 
-import { AuthProvider } from "./contexts/authContext";
-import { useRoutes } from "react-router-dom";
+function AppContent() {
+  const { currentUser } = useAuth(); // Get the current user from context
+  const navigate = useNavigate(); // Get the navigate function
 
-function App() {
+  // Redirect to the "Booked User" screen by default after login
+
   const routesArray = [
     {
       path: "*",
@@ -22,15 +33,62 @@ function App() {
       element: <Register />,
     },
     {
+      path: "/booked-user",
+      element: <BookedUser />, // Default route after login
+    },
+    {
       path: "/home",
-      element: <Home />,
+      element: <div>Main Home Content</div>, // Adjust content for the Home main area
+    },
+    {
+      path: "/subscribed-user",
+      element: <SubscribedUser />,
+    },
+    {
+      path: "/testimonial-setup",
+      element: <TestimonialSetup />,
+    },
+    {
+      path: "/services-setup",
+      element: <ServicesSetup />,
+    },
+    {
+      path: "/packages-setup",
+      element: <PackagesSetup />,
+    },
+    {
+      path: "/contact-form",
+      element: <ContactFormSetup />,
+    },
+    {
+      path: "/contact-info",
+      element: <ContactInfoSetup />,
     },
   ];
+
   let routesElement = useRoutes(routesArray);
+
+  return (
+    <div className="w-full h-screen flex overflow-hidden">
+      {currentUser && (
+        <div className="w-64">
+          <Home /> {/* Sidebar will be visible only when logged in */}
+        </div>
+      )}
+
+      {/* Main content area */}
+      <div className="flex-grow overflow-auto">
+        {currentUser && <Header />} {/* Show header only when logged in */}
+        <div className="w-full h-full p-5">{routesElement}</div>
+      </div>
+    </div>
+  );
+}
+
+function App() {
   return (
     <AuthProvider>
-      <Header />
-      <div className="w-full h-screen flex flex-col">{routesElement}</div>
+      <AppContent />
     </AuthProvider>
   );
 }
