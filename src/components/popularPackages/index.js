@@ -99,7 +99,7 @@ const PackagesSetup = () => {
     };
 
     return (
-        <div className="p-10 bg-gray-50" >
+        <div className="p-10 bg-gray-50" style={{ marginLeft: "5%" }}>
             <h2>Popular Packages Setup</h2>
             <Button variant="contained" color="primary" onClick={() => {
                 setCurrentPackage(null);

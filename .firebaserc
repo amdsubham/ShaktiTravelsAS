@@ -1,0 +1,16 @@
+{
+  "projects": {
+    "default": "lordjagannathtoursandtra-671aa"
+  },
+  "targets": {
+    "lordjagannathtoursandtra-671aa": {
+      "hosting": {
+        "adminshaktitoursandtravels": [
+          "adminshaktitoursandtravels"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
+}

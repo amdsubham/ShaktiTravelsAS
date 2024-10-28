@@ -38,7 +38,7 @@ function AppContent() {
     },
     {
       path: "/home",
-      element: <div>Main Home Content</div>, // Adjust content for the Home main area
+      element: <BookedUser />, // Adjust content for the Home main area
     },
     {
       path: "/subscribed-user",
